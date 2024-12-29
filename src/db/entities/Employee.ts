@@ -1,15 +1,14 @@
+import { MedicalRecord, User } from '@/db/entities'
+import { genId } from '@/shared/utils'
 import {
-  Entity,
-  PrimaryKey,
-  Property,
   Collection,
-  ManyToMany,
+  Entity,
   ManyToOne,
   OneToMany,
+  PrimaryKey,
+  Property,
 } from '@mikro-orm/core'
 import { ApiProperty } from '@nestjs/swagger'
-import { genId } from '@/shared/utils'
-import { MedicalRecord, User } from '@/db/entities'
 
 @Entity({ tableName: 'employees' })
 export class Employee {
@@ -38,7 +37,7 @@ export class Employee {
   specialist: string
 
   @ManyToOne(() => User)
-  user: User
+  user!: User
 
   @OneToMany(() => MedicalRecord, (record) => record.doctor)
   medicalRecords = new Collection<MedicalRecord>(this)

@@ -1,24 +1,25 @@
-import { Role } from '@/db/entities/Role'
-import { UserFactory } from '@/db/factories'
-import { RoleEnum } from '@/shared/enum'
-import type { EntityManager } from '@mikro-orm/core'
+import { Role, User } from '@/db/entities'
+import { UserFactory } from '../factories'
+import { EntityManager } from '@mikro-orm/core'
 import { Seeder } from '@mikro-orm/seeder'
 
 export class UserSeeder extends Seeder {
-  async run(em: EntityManager) {
-    const adminRole = await em.findOne(Role, { name: RoleEnum.ADMIN })
-    const userRole = await em.findOne(Role, { name: RoleEnum.USER })
+  async run(em: EntityManager): Promise<void> {
+    const doctorRole = await em.findOne(Role, { name: 'DOCTOR' })
+    const patientRole = await em.findOne(Role, { name: 'PATIENT' })
+    const receptionistRole = await em.findOne(Role, { name: 'RECEPTIONIST' })
 
-    new UserFactory(em).make(1, {
-      // email: 'admin@example.com',
-      // role: adminRole,
-    })
-    new UserFactory(em).make(1, {
-      // email: 'user@example.com',
-      // role: userRole,
-    })
-    new UserFactory(em).make(10, {
-      // role: userRole,
-    })
+    // Create users with roles
+    const createUserWithRole = async (roleEntity: Role, count: number = 1) => {
+      return new UserFactory(em)
+        .each((user) => {
+          user.roles.add(roleEntity)
+        })
+        .create(count)
+    }
+
+    await createUserWithRole(doctorRole, 5) // 5 doctors
+    await createUserWithRole(patientRole, 20) // 20 patients
+    await createUserWithRole(receptionistRole, 2) // 2 receptionists
   }
 }

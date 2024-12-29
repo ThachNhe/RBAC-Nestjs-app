@@ -1,5 +1,6 @@
 import { Options } from '@mikro-orm/core'
-import { defineConfig } from '@mikro-orm/postgresql'
+// import { defineConfig } from '@mikro-orm/postgresql'
+import { defineConfig } from '@mikro-orm/mysql'
 import { configDotenv } from 'dotenv'
 configDotenv()
 const {
@@ -7,18 +8,16 @@ const {
   DB_HOST,
   DB_PORT,
   DB_MAIN,
-  DB_TEST,
   DB_USER,
   DB_PASS,
 } = process.env
 
-const isTest = NODE_ENV === 'test'
 const isDev = NODE_ENV === 'development'
 
 const dbConfig: Options = defineConfig({
   host: DB_HOST,
   port: Number(DB_PORT),
-  dbName: isTest ? DB_TEST : DB_MAIN,
+  dbName: DB_MAIN,
   user: DB_USER,
   password: DB_PASS,
   discovery: { warnWhenNoEntities: false },

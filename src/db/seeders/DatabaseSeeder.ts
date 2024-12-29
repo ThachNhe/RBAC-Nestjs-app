@@ -1,10 +1,12 @@
-import { RoleSeeder } from '@/db/seeders/RoleSeeder'
-import { UserSeeder } from '@/db/seeders/UserSeeder'
 import { EntityManager } from '@mikro-orm/core'
 import { Seeder } from '@mikro-orm/seeder'
+import { RoleSeeder } from './RoleSeeder'
+import { UserSeeder } from './UserSeeder'
+import { PatientSeeder } from '@/db/seeders/PatientSeeder'
+import { EmployeeSeeder } from '@/db/seeders/EmployeeSeeder'
 
 export class DatabaseSeeder extends Seeder {
-  run(em: EntityManager) {
-    return this.call(em, [RoleSeeder, UserSeeder])
+  async run(em: EntityManager): Promise<void> {
+    await this.call(em, [RoleSeeder, UserSeeder, PatientSeeder, EmployeeSeeder])
   }
 }

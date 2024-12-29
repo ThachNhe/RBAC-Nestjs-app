@@ -1,12 +1,18 @@
 import { Role } from '@/db/entities'
-import type { EntityManager } from '@mikro-orm/core'
+import { genId } from '@/shared/utils'
+import { EntityManager } from '@mikro-orm/core'
 import { Seeder } from '@mikro-orm/seeder'
-import { RoleEnum } from '@/shared/enum'
 
 export class RoleSeeder extends Seeder {
-  async run(em: EntityManager) {
-    const adminRole = em.create(Role, { name: RoleEnum.ADMIN })
-    const userRole = em.create(Role, { name: RoleEnum.USER })
-    await em.persistAndFlush([adminRole, userRole])
+  async run(em: EntityManager): Promise<void> {
+    const roles = ['DOCTOR', 'PATIENT', 'RECEPTIONIST']
+
+    for (const roleName of roles) {
+      const role = em.create(Role, {
+        id: genId(),
+        name: roleName,
+      })
+      em.persist(role)
+    }
   }
 }
