@@ -1,0 +1,10 @@
+# Development Dockerfile
+FROM hashicorp/vault:latest
+
+COPY ./dockers/vault/config/ /vault/config/
+
+# Expose Vault development port
+EXPOSE 8200
+
+# Default entrypoint for Vault dev mode
+ENTRYPOINT ["vault", "server", "-config=/vault/config/vault-dev.hcl"]

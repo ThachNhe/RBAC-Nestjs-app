@@ -1,0 +1,13 @@
+# Production Dockerfile
+FROM hashicorp/vault:latest
+
+# Copy Vault configuration
+COPY ./dockers/vault/config/ /vault/config/
+
+RUN mkdir -p ./vault/data
+
+# Expose Vault port
+EXPOSE 8200
+
+# Default entrypoint
+ENTRYPOINT ["vault", "server", "-config=/vault/config/vault.hcl"]
