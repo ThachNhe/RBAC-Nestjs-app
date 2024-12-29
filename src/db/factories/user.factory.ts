@@ -8,7 +8,6 @@ export class UserFactory extends Factory<User> {
 
   definition(): Partial<User> {
     return {
-      id: genId(),
       username: faker.internet.userName(),
       password: faker.internet.password(),
     }

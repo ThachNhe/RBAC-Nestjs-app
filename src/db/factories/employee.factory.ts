@@ -8,7 +8,6 @@ export class EmployeeFactory extends Factory<Employee> {
 
   definition(): Partial<Employee> {
     return {
-      id: genId(),
       fullName: faker.person.fullName(),
       age: faker.number.int({ min: 25, max: 65 }),
       address: faker.location.streetAddress(),

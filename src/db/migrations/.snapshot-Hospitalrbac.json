@@ -44,7 +44,7 @@
           "mappedType": "datetime"
         }
       },
-      "name": "roles",
+      "name": "Role",
       "indexes": [
         {
           "keyName": "PRIMARY",
@@ -114,14 +114,14 @@
           "mappedType": "datetime"
         }
       },
-      "name": "users",
+      "name": "User",
       "indexes": [
         {
           "columnNames": [
             "username"
           ],
           "composite": false,
-          "keyName": "users_username_unique",
+          "keyName": "User_username_unique",
           "constraint": true,
           "primary": false,
           "unique": true
@@ -199,7 +199,7 @@
           "unsigned": true,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "length": null,
           "mappedType": "bigint"
         },
@@ -219,19 +219,19 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "length": null,
           "mappedType": "datetime"
         }
       },
-      "name": "patients",
+      "name": "Patient",
       "indexes": [
         {
           "columnNames": [
             "user_id"
           ],
           "composite": false,
-          "keyName": "patients_user_id_index",
+          "keyName": "Patient_user_id_index",
           "constraint": false,
           "primary": false,
           "unique": false
@@ -249,16 +249,17 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "patients_user_id_foreign": {
-          "constraintName": "patients_user_id_foreign",
+        "Patient_user_id_foreign": {
+          "constraintName": "Patient_user_id_foreign",
           "columnNames": [
             "user_id"
           ],
-          "localTableName": "patients",
+          "localTableName": "Patient",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "users",
+          "referencedTableName": "User",
+          "deleteRule": "set null",
           "updateRule": "cascade"
         }
       },
@@ -332,7 +333,7 @@
           "unsigned": true,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "length": null,
           "mappedType": "bigint"
         },
@@ -357,14 +358,14 @@
           "mappedType": "datetime"
         }
       },
-      "name": "employees",
+      "name": "Employee",
       "indexes": [
         {
           "columnNames": [
             "user_id"
           ],
           "composite": false,
-          "keyName": "employees_user_id_index",
+          "keyName": "Employee_user_id_index",
           "constraint": false,
           "primary": false,
           "unique": false
@@ -382,151 +383,17 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "employees_user_id_foreign": {
-          "constraintName": "employees_user_id_foreign",
+        "Employee_user_id_foreign": {
+          "constraintName": "Employee_user_id_foreign",
           "columnNames": [
             "user_id"
           ],
-          "localTableName": "employees",
+          "localTableName": "Employee",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "users",
-          "updateRule": "cascade"
-        }
-      },
-      "nativeEnums": {}
-    },
-    {
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "bigint",
-          "unsigned": true,
-          "autoincrement": true,
-          "primary": true,
-          "nullable": false,
-          "length": null,
-          "mappedType": "bigint"
-        },
-        "patient_id": {
-          "name": "patient_id",
-          "type": "bigint",
-          "unsigned": true,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": null,
-          "mappedType": "bigint"
-        },
-        "doctor_id": {
-          "name": "doctor_id",
-          "type": "bigint",
-          "unsigned": true,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": null,
-          "mappedType": "bigint"
-        },
-        "diagnosis": {
-          "name": "diagnosis",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": null,
-          "mappedType": "text"
-        },
-        "treatment": {
-          "name": "treatment",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": null,
-          "mappedType": "text"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "datetime",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": null,
-          "mappedType": "datetime"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "datetime",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": null,
-          "mappedType": "datetime"
-        }
-      },
-      "name": "medical_records",
-      "indexes": [
-        {
-          "columnNames": [
-            "patient_id"
-          ],
-          "composite": false,
-          "keyName": "medical_records_patient_id_index",
-          "constraint": false,
-          "primary": false,
-          "unique": false
-        },
-        {
-          "columnNames": [
-            "doctor_id"
-          ],
-          "composite": false,
-          "keyName": "medical_records_doctor_id_index",
-          "constraint": false,
-          "primary": false,
-          "unique": false
-        },
-        {
-          "keyName": "PRIMARY",
-          "columnNames": [
-            "id"
-          ],
-          "composite": false,
-          "constraint": true,
-          "primary": true,
-          "unique": true
-        }
-      ],
-      "checks": [],
-      "foreignKeys": {
-        "medical_records_patient_id_foreign": {
-          "constraintName": "medical_records_patient_id_foreign",
-          "columnNames": [
-            "patient_id"
-          ],
-          "localTableName": "medical_records",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "patients",
-          "updateRule": "cascade"
-        },
-        "medical_records_doctor_id_foreign": {
-          "constraintName": "medical_records_doctor_id_foreign",
-          "columnNames": [
-            "doctor_id"
-          ],
-          "localTableName": "medical_records",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "employees",
+          "referencedTableName": "User",
+          "deleteRule": "set null",
           "updateRule": "cascade"
         }
       },
@@ -555,14 +422,14 @@
           "mappedType": "bigint"
         }
       },
-      "name": "users_roles",
+      "name": "User_Role",
       "indexes": [
         {
           "columnNames": [
             "user_id"
           ],
           "composite": false,
-          "keyName": "users_roles_user_id_index",
+          "keyName": "User_Role_user_id_index",
           "constraint": false,
           "primary": false,
           "unique": false
@@ -572,7 +439,7 @@
             "role_id"
           ],
           "composite": false,
-          "keyName": "users_roles_role_id_index",
+          "keyName": "User_Role_role_id_index",
           "constraint": false,
           "primary": false,
           "unique": false
@@ -591,29 +458,29 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "users_roles_user_id_foreign": {
-          "constraintName": "users_roles_user_id_foreign",
+        "User_Role_user_id_foreign": {
+          "constraintName": "User_Role_user_id_foreign",
           "columnNames": [
             "user_id"
           ],
-          "localTableName": "users_roles",
+          "localTableName": "User_Role",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "users",
+          "referencedTableName": "User",
           "deleteRule": "cascade",
           "updateRule": "cascade"
         },
-        "users_roles_role_id_foreign": {
-          "constraintName": "users_roles_role_id_foreign",
+        "User_Role_role_id_foreign": {
+          "constraintName": "User_Role_role_id_foreign",
           "columnNames": [
             "role_id"
           ],
-          "localTableName": "users_roles",
+          "localTableName": "User_Role",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "roles",
+          "referencedTableName": "Role",
           "deleteRule": "cascade",
           "updateRule": "cascade"
         }

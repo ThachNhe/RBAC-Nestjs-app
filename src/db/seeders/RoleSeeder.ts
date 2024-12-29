@@ -9,7 +9,6 @@ export class RoleSeeder extends Seeder {
 
     for (const roleName of roles) {
       const role = em.create(Role, {
-        id: genId(),
         name: roleName,
       })
       em.persist(role)

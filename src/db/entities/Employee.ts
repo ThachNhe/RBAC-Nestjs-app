@@ -1,4 +1,4 @@
-import { MedicalRecord, User } from '@/db/entities'
+import { User } from '@/db/entities'
 import { genId } from '@/shared/utils'
 import {
   Collection,
@@ -10,11 +10,11 @@ import {
 } from '@mikro-orm/core'
 import { ApiProperty } from '@nestjs/swagger'
 
-@Entity({ tableName: 'employees' })
+@Entity({ tableName: 'Employee' })
 export class Employee {
   @PrimaryKey({ type: 'bigint' })
   @ApiProperty()
-  id: string = genId()
+  id: number
 
   @Property()
   @ApiProperty()
@@ -36,17 +36,14 @@ export class Employee {
   @ApiProperty()
   specialist: string
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { nullable: true })
   user!: User
 
-  @OneToMany(() => MedicalRecord, (record) => record.doctor)
-  medicalRecords = new Collection<MedicalRecord>(this)
-
-  @Property({ type: 'timestamp' })
+  @Property({ type: 'datetime' })
   @ApiProperty()
   createdAt: Date = new Date()
 
-  @Property({ type: 'timestamp', onUpdate: () => new Date() })
+  @Property({ type: 'datetime', onUpdate: () => new Date() })
   @ApiProperty()
   updatedAt: Date = new Date()
 }

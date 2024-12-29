@@ -6,14 +6,13 @@ import {
   ManyToMany,
 } from '@mikro-orm/core'
 import { ApiProperty } from '@nestjs/swagger'
-import { genId } from '@/shared/utils'
 import { Role } from '@/db/entities'
 
-@Entity({ tableName: 'users' })
+@Entity({ tableName: 'User' })
 export class User {
   @PrimaryKey({ type: 'bigint' })
   @ApiProperty()
-  id: string = genId()
+  id: number
 
   @Property({ unique: true })
   @ApiProperty()
@@ -23,14 +22,17 @@ export class User {
   @ApiProperty()
   password: string
 
-  @ManyToMany(() => Role)
+  @ManyToMany(() => Role, 'users', {
+    pivotTable: 'User_Role',
+    owner: true,
+  })
   roles = new Collection<Role>(this)
 
-  @Property({ type: 'timestamp' })
+  @Property({ type: 'datetime' })
   @ApiProperty()
   createdAt: Date = new Date()
 
-  @Property({ type: 'timestamp', onUpdate: () => new Date() })
+  @Property({ type: 'datetime', onUpdate: () => new Date() })
   @ApiProperty()
   updatedAt: Date = new Date()
 }

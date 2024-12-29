@@ -1,7 +1,7 @@
-import { Employee, User } from '@/db/entities'
-import { EmployeeFactory } from '../factories'
+import { User } from '@/db/entities'
 import { EntityManager } from '@mikro-orm/core'
 import { Seeder } from '@mikro-orm/seeder'
+import { EmployeeFactory } from '../factories'
 
 export class EmployeeSeeder extends Seeder {
   async run(em: EntityManager): Promise<void> {

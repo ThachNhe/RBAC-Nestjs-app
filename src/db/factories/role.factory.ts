@@ -8,7 +8,6 @@ export class RoleFactory extends Factory<Role> {
 
   definition(): Partial<Role> {
     return {
-      id: genId(),
       name: faker.helpers.arrayElement(['DOCTOR', 'PATIENT', 'RECEPTIONIST']),
     }
   }

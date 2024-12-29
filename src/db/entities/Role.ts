@@ -9,24 +9,24 @@ import { ApiProperty } from '@nestjs/swagger'
 import { genId } from '@/shared/utils'
 import { User } from '@/db/entities/User'
 
-@Entity({ tableName: 'roles' })
+@Entity({ tableName: 'Role' })
 export class Role {
   @PrimaryKey({ type: 'bigint' })
   @ApiProperty()
-  id: string = genId()
+  id: number
 
   @Property()
   @ApiProperty()
   name: string
 
-  @ManyToMany(() => User, (user) => user.roles)
+  @ManyToMany(() => User, (user) => user.roles, { nullable: true })
   users = new Collection<User>(this)
 
-  @Property({ type: 'timestamp' })
+  @Property({ type: 'datetime' })
   @ApiProperty()
   createdAt: Date = new Date()
 
-  @Property({ type: 'timestamp', onUpdate: () => new Date() })
+  @Property({ type: 'datetime', onUpdate: () => new Date() })
   @ApiProperty()
   updatedAt: Date = new Date()
 }
