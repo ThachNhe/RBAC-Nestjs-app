@@ -4,7 +4,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { MailerOptions } from '@nestjs-modules/mailer/dist/interfaces/mailer-options.interface'
 import { RequestMethod } from '@nestjs/common'
 import { JwtModuleOptions } from '@nestjs/jwt'
-import { RedisOptions } from 'bullmq'
+// import { RedisOptions } from 'bullmq'
 import path from 'path'
 
 const { NODE_ENV } = process.env
@@ -41,13 +41,6 @@ export const jwtConfig: JwtModuleOptions = {
   signOptions: {
     expiresIn: JWT_TTL,
   },
-}
-
-const { REDIS_HOST = 'localhost', REDIS_PORT = '6379' } = process.env
-
-export const redisConfig: RedisOptions = {
-  host: REDIS_HOST,
-  port: Number(REDIS_PORT),
 }
 
 const {

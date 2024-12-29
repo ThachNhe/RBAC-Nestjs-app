@@ -7,12 +7,9 @@ import { TerminusModule } from '@nestjs/terminus'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { AuthModule } from './auth/auth.module'
-import { MailModule } from './mail/mail.module'
 import { UserModule } from './user/user.module'
 import { RedisModule } from '@nestjs-modules/ioredis'
 import { RolesGuard } from '@/auth/roles.guard'
-
-const { REDIS_HOST, REDIS_PORT } = process.env
 
 @Module({
   imports: [
@@ -20,14 +17,10 @@ const { REDIS_HOST, REDIS_PORT } = process.env
       isGlobal: true,
     }),
     LoggerModule.forRoot(loggerConfig),
-    RedisModule.forRoot({
-      type: 'single',
-      url: `redis://${REDIS_HOST}:${REDIS_PORT}`,
-    }),
+
     TerminusModule,
     AuthModule,
     OrmModule,
-    MailModule,
     UserModule,
   ],
   controllers: [AppController],

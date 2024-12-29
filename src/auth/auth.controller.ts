@@ -16,12 +16,4 @@ export class AuthController {
   ) {
     this.logger.setContext(AuthController.name)
   }
-
-  @ApiOkResponseDto({
-    data: AuthUser,
-  })
-  @Post('register')
-  async register(@Body() body: CreateUserDto) {
-    return await this.authService.register(body)
-  }
 }
