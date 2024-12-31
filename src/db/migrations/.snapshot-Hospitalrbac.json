@@ -401,6 +401,151 @@
     },
     {
       "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "length": null,
+          "mappedType": "integer"
+        },
+        "diagnosis": {
+          "name": "diagnosis",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "treatment": {
+          "name": "treatment",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "prescription": {
+          "name": "prescription",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "datetime",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "datetime"
+        },
+        "patient_id": {
+          "name": "patient_id",
+          "type": "bigint",
+          "unsigned": true,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "bigint"
+        },
+        "doctor_id": {
+          "name": "doctor_id",
+          "type": "bigint",
+          "unsigned": true,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "bigint"
+        }
+      },
+      "name": "patient_record",
+      "indexes": [
+        {
+          "columnNames": [
+            "patient_id"
+          ],
+          "composite": false,
+          "keyName": "patient_record_patient_id_index",
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "columnNames": [
+            "doctor_id"
+          ],
+          "composite": false,
+          "keyName": "patient_record_doctor_id_index",
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "PRIMARY",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "patient_record_patient_id_foreign": {
+          "constraintName": "patient_record_patient_id_foreign",
+          "columnNames": [
+            "patient_id"
+          ],
+          "localTableName": "patient_record",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "Patient",
+          "updateRule": "cascade"
+        },
+        "patient_record_doctor_id_foreign": {
+          "constraintName": "patient_record_doctor_id_foreign",
+          "columnNames": [
+            "doctor_id"
+          ],
+          "localTableName": "patient_record",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "Employee",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
         "user_id": {
           "name": "user_id",
           "type": "bigint",

@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module'
 import { UserModule } from './user/user.module'
 import { RedisModule } from '@nestjs-modules/ioredis'
 import { RolesGuard } from '@/auth/roles.guard'
+import { PatientRecordModule } from './patient-record/patient-record.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { RolesGuard } from '@/auth/roles.guard'
     AuthModule,
     OrmModule,
     UserModule,
+    PatientRecordModule,
   ],
   controllers: [AppController],
   providers: [AppService, RolesGuard],

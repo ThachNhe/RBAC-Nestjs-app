@@ -1,4 +1,4 @@
-import { User } from '@/db/entities'
+import { PatientRecord, User } from '@/db/entities'
 import { genId } from '@/shared/utils'
 import {
   Collection,
@@ -46,4 +46,7 @@ export class Employee {
   @Property({ type: 'datetime', onUpdate: () => new Date() })
   @ApiProperty()
   updatedAt: Date = new Date()
+
+  @OneToMany(() => PatientRecord, (record) => record.doctor)
+  patient_records!: Collection<PatientRecord>
 }
